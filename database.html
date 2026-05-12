@@ -1,13 +1,25 @@
+/*=====================================================
+PROGRAM: Database Table Display
+This PHP script connects to a MySQL database,
+retrieves records from a table, and displays
+the results in an HTML table.
+- Designed for beginner PHP/MySQL practice
+*/
 <html>
 <body>
 <?php 
+/*-- DATABASE CONNECTION SETTINGS --*/
 $username = "username"; 
 $password = "password"; 
 $database = "your_database"; 
+
+/*-- CREATE DATABASE CONNECTION --*/
 $mysqli = new mysqli("localhost", $username, $password, $database); 
+
+/*-- SQL QUERY --*/
 $query = "SELECT * FROM table_name";
  
- 
+/*-- DISPLAY TABLE HEADER --*/
 echo '<table border="0" cellspacing="2" cellpadding="2"> 
       <tr> 
           <td> <font face="Arial">Value1</font> </td> 
@@ -16,15 +28,21 @@ echo '<table border="0" cellspacing="2" cellpadding="2">
           <td> <font face="Arial">Value4</font> </td> 
           <td> <font face="Arial">Value5</font> </td> 
       </tr>';
- 
+
+/*-- EXECUTE QUERY AND DISPLAY RESULTS --*/
 if ($result = $mysqli->query($query)) {
+
+    // Loop through database records
     while ($row = $result->fetch_assoc()) {
+
+        // Store column values into variables
         $field1name = $row["col1"];
         $field2name = $row["col2"];
         $field3name = $row["col3"];
         $field4name = $row["col4"];
         $field5name = $row["col5"]; 
- 
+
+        /*-- DISPLAY TABLE ROW --*/
         echo '<tr> 
                   <td>'.$field1name.'</td> 
                   <td>'.$field2name.'</td> 
@@ -33,6 +51,8 @@ if ($result = $mysqli->query($query)) {
                   <td>'.$field5name.'</td> 
               </tr>';
     }
+
+    // Free result memory
     $result->free();
 } 
 ?>
